@@ -54,4 +54,14 @@ const theme = null;
     --footer-height: 6.7rem;
     --content-height: calc(100vh - var(--header-height) - var(--footer-height));
 }
+
+.page-enter-active,
+.page-leave-active {
+    transition: all 0.3s;
+}
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+    filter: blur(0.5rem);
+}
 </style>

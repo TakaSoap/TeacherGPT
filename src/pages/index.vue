@@ -26,11 +26,7 @@ const router = useRouter();
 const mainBtnText = ref('开始使用');
 
 function onMainBtnClick() {
-    // if (user) {
-    //     router.push('/ai');
-    // } else {
-    //     router.push('/login');
-    // }
+    //TODO: Auth
     router.push('/ai');
 }
 </script>

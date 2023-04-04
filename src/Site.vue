@@ -12,10 +12,10 @@
 
 <script setup lang="ts">
 import { useLoadingBar, useMessage } from 'naive-ui';
-import { loadingBarRef } from '@/composables/loadingBarControl';
+import { loadingBarRef } from '@/composables/loadingBarAndTitleControl.js';
 
 const router = useRouter();
-loadingBarControl(router);
+loadingBarAndTitleControl(router);
 
 const loading = ref(true);
 

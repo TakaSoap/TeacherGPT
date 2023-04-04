@@ -6,6 +6,7 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import { fileURLToPath } from 'url';
 
 export default defineNuxtConfig({
+    app: { pageTransition: { name: 'page', mode: 'out-in' } },
     alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
     },

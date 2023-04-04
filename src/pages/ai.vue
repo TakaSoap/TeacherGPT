@@ -1,12 +1,12 @@
 <template>
-    <n-space vertical >
+    <n-space vertical>
         <n-layout has-sider>
             <n-layout-sider
                 bordered
                 collapse-mode="width"
                 :collapsed-width="64"
                 :width="240"
-                style="min-height: var(--content-height); max-height: var(--content-height);"
+                style="min-height: var(--content-height)"
                 :native-scrollbar="false"
                 :collapsed="collapsed"
                 show-trigger
@@ -16,9 +16,11 @@
                 <n-menu v-model:value="menuValue" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptionsRef" />
             </n-layout-sider>
             <n-layout>
-                <div class="main-view">
-                    <NuxtPage />
-                </div>
+                <n-scrollbar style="max-height: var(--content-height)">
+                    <div class="main-view">
+                        <NuxtPage />
+                    </div>
+                </n-scrollbar>
             </n-layout>
         </n-layout>
     </n-space>
@@ -26,15 +28,7 @@
 
 <script setup lang="ts">
 import { MenuOption, NIcon, useMessage } from 'naive-ui';
-import {
-    LogOutOutline,
-    BookOutline,
-    SchoolOutline,
-    PeopleCircleOutline,
-    PersonCircleOutline,
-    FileTrayFullOutline,
-    PersonOutline
-} from '@vicons/ionicons5';
+import { LogOutOutline, BookOutline, SchoolOutline, PeopleCircleOutline, PersonCircleOutline, PersonOutline } from '@vicons/ionicons5';
 import { Component, Ref, provide } from 'vue';
 import { RouterLink } from 'vue-router';
 
@@ -47,7 +41,7 @@ function renderIcon(icon: Component) {
 }
 
 const menuValueRef = computed(() => {
-    if (/\/writing/.test(route.path)) return 'writing';
+    if (/\/gaokao-essay/.test(route.path)) return 'gaokao-essay';
     else if (/\/base/.test(route.path)) return 'base';
     else if (/\/subscribed/.test(route.path)) return 'subscribed';
     else if (/\/my/.test(route.path)) return 'my';
@@ -65,11 +59,11 @@ const menuOptions: MenuOption[] = [
             h(
                 RouterLink,
                 {
-                    to: '/ai/writing'
+                    to: '/ai/gaokao-essay'
                 },
-                () => '作文批改'
+                () => '高考作文批改'
             ),
-        key: 'writing',
+        key: 'gaokao-essay',
         icon: renderIcon(BookOutline)
     },
     {
@@ -77,11 +71,11 @@ const menuOptions: MenuOption[] = [
             h(
                 RouterLink,
                 {
-                    to: '/ai/base'
+                    to: '/ai/essay'
                 },
-                () => '与我同校'
+                () => '作文批改'
             ),
-        key: 'base',
+        key: 'essay',
         icon: renderIcon(SchoolOutline)
     },
     {
@@ -89,11 +83,11 @@ const menuOptions: MenuOption[] = [
             h(
                 RouterLink,
                 {
-                    to: '/ai/subscribed'
+                    to: '/ai/ielts-essay'
                 },
-                () => '我的关注'
+                () => '雅思作文批改'
             ),
-        key: 'subscribed',
+        key: 'ielts-essay',
         icon: renderIcon(PeopleCircleOutline)
     },
     {
@@ -135,270 +129,6 @@ const menuOptions: MenuOption[] = [
             ),
         key: 'logout',
         icon: renderIcon(LogOutOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
     }
 ];
 
@@ -406,7 +136,7 @@ const menuOptionsRef = ref(menuOptions);
 </script>
 
 <style scoped>
-.main-view{
+.main-view {
     padding: 2rem 3.5rem;
 }
 </style>

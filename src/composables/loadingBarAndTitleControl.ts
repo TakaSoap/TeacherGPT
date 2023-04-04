@@ -1,3 +1,14 @@
+interface TitleMap {
+    [path: string]: string;
+}
+
+const titleMap: TitleMap = {
+    '/index': '',
+    '/ai': '工作台',
+    '/ai/gaokaoEssay': '作文评分',
+
+};
+
 export const loadingBarRef: Ref<any> = ref(null);
 
 export default function (router: any) {
@@ -21,13 +32,9 @@ export default function (router: any) {
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                 });
             }
-            nextTick(() => {
-                const h1s = document.getElementsByTagName('h1');
-                if (to.name !== 'index' && h1s.length !== 0) {
-                    document.title = h1s[0].textContent + ' - TeacherGPT';
-                }
-                // else, defined in index.vue
-            });
+
+            const title = titleMap[to.path];
+            document.title = title + (title ? ' - ' : '') + 'TeacherGPT';
         }
     });
 
