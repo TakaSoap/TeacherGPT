@@ -1,6 +1,6 @@
 <template>
     <div>
-        <n-card size="medium" style="max-width: 800px">
+        <n-card size="medium" style="max-width: 50rem">
             <template #header>
                 <n-h2 style="margin: 0">
                     <n-text type="primary"> 作文 </n-text>
@@ -17,6 +17,10 @@
                     <n-form-item path="topic" :show-feedback="false" label="作文题目">
                         <n-input
                             :status="topicStatus"
+                            :autosize="{
+                                minRows: 3,
+                                maxRows: 8
+                            }"
                             v-model:value="gaokaoEssayStore.essay.topic"
                             type="textarea"
                             placeholder="在此输入作文题目"
@@ -35,6 +39,10 @@
                     <n-form-item path="essay" :show-feedback="false" label="作文正文">
                         <n-input
                             :status="essayStatus"
+                            :autosize="{
+                                minRows: 3,
+                                maxRows: 20
+                            }"
                             v-model:value="gaokaoEssayStore.essay.content"
                             type="textarea"
                             placeholder="在此输入作文"

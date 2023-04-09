@@ -95,9 +95,9 @@ const menuOptions: MenuOption[] = [
             h(
                 RouterLink,
                 {
-                    to: '/ai/my'
+                    to: '/ai/question-answering'
                 },
-                () => '我的动态'
+                () => '通用问答'
             ),
         key: 'my',
         icon: renderIcon(PersonCircleOutline)

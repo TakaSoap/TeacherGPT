@@ -2,7 +2,7 @@
     <div>
         <NuxtLayout>
             <n-spin :show="loading">
-                <div class="main-container">
+                <div>
                     <NuxtPage v-if="!loading" />
                 </div>
             </n-spin>

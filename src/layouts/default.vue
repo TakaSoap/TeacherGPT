@@ -1,5 +1,5 @@
 <template>
-    <n-layout :native-scrollbar="false">
+    <n-layout position="absolute" :native-scrollbar="false">
         <img src="@/assets/hero-gradient.svg" :style="{ opacity: backgroundOpacity }" class="background" alt="background" />
         <n-layout-header><AppHeader /></n-layout-header>
         <n-layout-content content-style="min-height: 40rem; max-height: var(--content-height);" has-slider :native-scrollbar="false">
@@ -15,7 +15,7 @@ const themeStore = useThemeStore();
 
 const backgroundOpacity = computed(() => {
     if (themeStore.isDarkTheme) return 0.3;
-    else return 1;
+    else return 0.7;
 });
 </script>
 

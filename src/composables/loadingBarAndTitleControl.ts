@@ -3,9 +3,11 @@ interface TitleMap {
 }
 
 const titleMap: TitleMap = {
-    '/index': '',
-    '/ai': '工作台',
-    '/ai/gaokaoEssay': '作文评分',
+    '/': '',
+    '/ai/': '工作台',
+    '/ai/gaokao-essay': '高考作文批改',
+    '/ai/ielts-essay': '雅思作文批改',
+    
 
 };
 
