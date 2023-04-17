@@ -27,10 +27,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useMessage } from 'naive-ui';
-import { useGaokaoEssayStore, FollowupAnswer } from '@/stores/gaokaoEssay';
+import { useIELTSEssayStore } from '@/stores/ieltsEssay';
 
 const message = useMessage();
-const gaokaoEssayStore = useGaokaoEssayStore();
+const ieltsEssayStore = useIELTSEssayStore();
 const api = useAPI();
 
 // Make it lose reactivity on purpose.
@@ -51,21 +51,21 @@ const anyLoading = computed(() => loadingStates.value.some((state) => state));
 function submitFollowup(followupQuestion: string, index: number) {
     loadingStates.value[index] = true;
 
-    api.ieltsEssayFollowupMessage(gaokaoEssayStore.followupMessages, gaokaoEssayStore.essay, {
+    api.ieltsEssayFollowupMessage(ieltsEssayStore.followupMessages, ieltsEssayStore.essay, {
         role: 'user',
         content: followupQuestion
     })
         .then((response) => {
             // If success, then record the followup question and answer
-            gaokaoEssayStore.addFollowupMessage({
+            ieltsEssayStore.addFollowupMessage({
                 role: 'user',
                 content: followupQuestion
             });
-            gaokaoEssayStore.addFollowupMessage({
+            ieltsEssayStore.addFollowupMessage({
                 role: 'assistant',
                 content: JSON.stringify(response.data)
             });
-            gaokaoEssayStore.addFollowupAnswer(response.data, followupQuestion);
+            ieltsEssayStore.addFollowupAnswer(response.data, followupQuestion);
             isButtonsShown.value = false;
         })
         .catch((error) => {

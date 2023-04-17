@@ -55,7 +55,7 @@ export const useQuestionAnsweringStore = defineStore('questionAnswering', () => 
     function resetConversation() {
         question.value = {
             content: '',
-            audience: ''
+            audience: 'default'
         };
         answer.value = {
             blocked: false,
@@ -68,10 +68,18 @@ export const useQuestionAnsweringStore = defineStore('questionAnswering', () => 
     
     /**
      * Add a followup message to the followupMessages array.
-     * @param newMessage The message received from OpenAI Chat API
+     * @param newAnswer The message received from OpenAI Chat API
      * @returns {void}
      */
-    function addMessage(newMessage: Message): void {
+    function addMessage(newAnswer: Answer): void {
+        let newMessage: Message = {
+            question: {
+                content: question.value.content,
+                audience: question.value.audience
+            },
+            answer: newAnswer
+        }
+
         conversation.value.push(newMessage);
     }
 

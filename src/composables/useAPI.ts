@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { useGaokaoEssayStore, Essay, EssayFeedback, Message } from '@/stores/gaokaoEssay';
+import { Essay as GaokaoEssay, Message as GaokaoMessage } from '@/stores/gaokaoEssay';
+import { Essay as IELTSEssay, Message as IELTSMessage } from '@/stores/ieltsEssay';
+import { useQuestionAnsweringStore, Answer, Message as QAMessage } from '@/stores/questionAnswering';
+
+interface GPTMessage {
+    role: string;
+    content: string;
+}
 
 const axiosInstance = axios.create({ baseURL: 'http://localhost:3001/v1' });
 
@@ -32,12 +39,11 @@ export default function useAPI() {
             attempts++;
         }
         // If we reach this point, all attempts have failed.
-        throw new Error('Request failed after 3 attempts.');
+        throw new Error('Request failed after maxAttempts.');
     };
 
-    const gaokaoEssayFollowupMessage = async (conversation: Message[], essay: Essay, newMessage: Message) => {
+    const gaokaoEssayFollowupMessage = async (conversation: GaokaoMessage[], essay: GaokaoEssay, newMessage: GaokaoMessage) => {
         attempts = 0;
-
         while (attempts < maxAttempts) {
             try {
                 const response = await axiosInstance.post('/gaokao-essay/follow-up', {
@@ -58,8 +64,76 @@ export default function useAPI() {
         }
 
         // If we reach this point, all attempts have failed.
-        throw new Error('Request failed after 3 attempts.');
+        throw new Error('Request failed after maxAttempts.');
     };
 
-    return { essayFirstMessage, essayFollowupMessage, gaokaoEssayFirstMessage, gaokaoEssayFollowupMessage };
+    const ieltsEssayFirstMessage = async (data: object) => {
+        attempts = 0;
+        while (attempts < maxAttempts) {
+            try {
+                const response = await axiosInstance.post('/ielts-essay', data);
+                if (response.status === 200) {
+                    return response;
+                }
+            } catch (error) {
+                console.error('Error during request:', error);
+                throw error;
+            }
+            attempts++;
+        }
+        // If we reach this point, all attempts have failed.
+        throw new Error('Request failed after maxAttempts.');
+    };
+
+    const ieltsEssayFollowupMessage = async (conversation: IELTSMessage[], essay: IELTSEssay, newMessage: IELTSMessage) => {
+        attempts = 0;
+        while (attempts < maxAttempts) {
+            try {
+                const response = await axiosInstance.post('/ielts-essay/follow-up', {
+                    conversation,
+                    essay,
+                    newMessage
+                });
+
+                if (response.status === 200) {
+                    return response;
+                }
+            } catch (error) {
+                console.error('Error during request:', error);
+                throw error;
+            }
+
+            attempts++;
+        }
+
+        // If we reach this point, all attempts have failed.
+        throw new Error('Request failed after maxAttempts.');
+    };
+
+    const qaMessage = async (conversation: GPTMessage[], newQuestion: string, audience: string) => {
+        attempts = 0;
+        while (attempts < maxAttempts) {
+            try {
+                const response = await axiosInstance.post('/qa', {
+                    conversation,
+                    newQuestion,
+                    audience,
+                });
+
+                if (response.status === 200) {
+                    return response;
+                }
+            } catch (error) {
+                console.error('Error during request:', error);
+                throw error;
+            }
+
+            attempts++;
+        }
+
+        // If we reach this point, all attempts have failed.
+        throw new Error('Request failed after maxAttempts.');
+    };
+
+    return { essayFirstMessage, essayFollowupMessage, gaokaoEssayFirstMessage, gaokaoEssayFollowupMessage, ieltsEssayFirstMessage, ieltsEssayFollowupMessage, qaMessage };
 }

@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { MenuOption, NIcon, useMessage } from 'naive-ui';
-import { LogOutOutline, BookOutline, SchoolOutline, PeopleCircleOutline, PersonCircleOutline, PersonOutline } from '@vicons/ionicons5';
+import { FileTrayFullOutline, BookOutline, ChatboxOutline, SchoolOutline, PencilOutline, PersonOutline } from '@vicons/ionicons5';
 import { Component, Ref, provide } from 'vue';
 import { RouterLink } from 'vue-router';
 
@@ -59,6 +59,18 @@ const menuOptions: MenuOption[] = [
             h(
                 RouterLink,
                 {
+                    to: '/ai/essay'
+                },
+                () => '普通作文批改'
+            ),
+        key: 'essay',
+        icon: renderIcon(SchoolOutline)
+    },
+    {
+        label: () =>
+            h(
+                RouterLink,
+                {
                     to: '/ai/gaokao-essay'
                 },
                 () => '高考作文批改'
@@ -71,24 +83,16 @@ const menuOptions: MenuOption[] = [
             h(
                 RouterLink,
                 {
-                    to: '/ai/essay'
-                },
-                () => '作文批改'
-            ),
-        key: 'essay',
-        icon: renderIcon(SchoolOutline)
-    },
-    {
-        label: () =>
-            h(
-                RouterLink,
-                {
                     to: '/ai/ielts-essay'
                 },
                 () => '雅思作文批改'
             ),
         key: 'ielts-essay',
-        icon: renderIcon(PeopleCircleOutline)
+        icon: renderIcon(PencilOutline)
+    },
+    {
+        key: 'divider',
+        type: 'divider'
     },
     {
         label: () =>
@@ -100,43 +104,25 @@ const menuOptions: MenuOption[] = [
                 () => '通用问答'
             ),
         key: 'my',
-        icon: renderIcon(PersonCircleOutline)
-    },
-    {
-        key: 'divider',
-        type: 'divider'
-    },
-    {
-        label: () =>
-            h(
-                'a',
-                {
-                    href: 'https://console.authing.cn/u?app_id=62a35e7d54fab18ac73c5932'
-                },
-                '个人中心'
-            ),
-        key: 'logout',
-        icon: renderIcon(PersonOutline)
+        icon: renderIcon(ChatboxOutline)
     },
     {
         label: () =>
             h(
                 RouterLink,
                 {
-                    to: '/logout'
+                    to: '/ai/evaluation'
                 },
-                () => '退出登录'
+                () => '学生评语生成'
             ),
-        key: 'logout',
-        icon: renderIcon(LogOutOutline)
+        key: 'evaluation',
+        icon: renderIcon(FileTrayFullOutline)
+    },
+    {
+        key: 'divider',
+        type: 'divider'
     }
 ];
 
 const menuOptionsRef = ref(menuOptions);
 </script>
-
-<style scoped>
-.main-view {
-    padding: 2rem 3.5rem;
-}
-</style>

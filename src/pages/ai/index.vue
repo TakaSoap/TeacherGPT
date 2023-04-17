@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main-view">
         <n-h1 prefix="bar">
             <n-text type="primary"> 工作台 </n-text>
         </n-h1>
@@ -9,4 +9,8 @@
 
 <script setup lang="ts"></script>
 
-<style scoped></style>
+<style scoped>
+.main-view {
+    padding: 2rem 3.5rem;
+}
+</style>

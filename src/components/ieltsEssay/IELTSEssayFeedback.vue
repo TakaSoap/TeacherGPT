@@ -1,6 +1,6 @@
 <template>
     <div>
-        <n-spin style="max-width: 50rem" :show="gaokaoEssayStore.submissionStatus != 'Submitted'">
+        <n-spin style="max-width: 50rem" :show="ieltsEssayStore.submissionStatus != 'Submitted'">
             <n-card size="medium" style="max-width: 50rem">
                 <!-- Feedback -->
                 <template #header>
@@ -8,33 +8,39 @@
                         <n-text type="primary"> 批改结果 </n-text>
                     </n-h2>
                 </template>
-                <n-grid class="score-grid">
+                <n-grid class="score-grid" :cols="30">
                     <n-gi span="6">
                         <n-statistic label="总分">
-                            <n-number-animation :from="0" :to="gaokaoEssayStore.totalScore" />
+                            <n-number-animation :from="0" :to="ieltsEssayStore.totalScore" />
                             <template #suffix>
-                                <n-text class="max-score" depth="3"> / 60 </n-text>
+                                <n-text class="max-score" depth="3"> / 9 </n-text>
                             </template>
                         </n-statistic>
                     </n-gi>
                     <n-gi span="6">
-                        <n-statistic label="内容">
-                            <n-number-animation :from="0" :to="gaokaoEssayStore.essayFeedback.content.score" />
+                        <n-statistic label="TR">
+                            <n-number-animation :from="0" :to="ieltsEssayStore.essayFeedback.TR.score" />
                             <template #suffix>
-                                <n-text class="max-score" depth="3"> / 20 </n-text>
+                                <n-text class="max-score" depth="3"> / 9 </n-text>
                             </template>
                         </n-statistic>
                     </n-gi>
                     <n-gi span="6">
-                        <n-statistic label="表达">
-                            <n-number-animation :from="0" :to="gaokaoEssayStore.essayFeedback.expression.score" />
-                            <template #suffix> <n-text class="max-score" depth="3"> / 20 </n-text></template>
+                        <n-statistic label="CC">
+                            <n-number-animation :from="0" :to="ieltsEssayStore.essayFeedback.CC.score" />
+                            <template #suffix> <n-text class="max-score" depth="3"> / 9 </n-text></template>
                         </n-statistic>
                     </n-gi>
                     <n-gi span="6">
-                        <n-statistic label="特征">
-                            <n-number-animation :from="0" :to="gaokaoEssayStore.essayFeedback.feature.score" />
-                            <template #suffix> <n-text class="max-score" depth="3"> / 20 </n-text></template>
+                        <n-statistic label="LR">
+                            <n-number-animation :from="0" :to="ieltsEssayStore.essayFeedback.LR.score" />
+                            <template #suffix> <n-text class="max-score" depth="3"> / 9 </n-text></template>
+                        </n-statistic>
+                    </n-gi>
+                    <n-gi span="6">
+                        <n-statistic label="GRA">
+                            <n-number-animation :from="0" :to="ieltsEssayStore.essayFeedback.GRA.score" />
+                            <template #suffix> <n-text class="max-score" depth="3"> / 9 </n-text></template>
                         </n-statistic>
                     </n-gi>
                 </n-grid>
@@ -42,49 +48,56 @@
                 <n-space vertical style="padding-bottom: 1.5rem">
                     <div>
                         <n-h3 prefix="bar" class="feedback-aspect"><n-text> 总评 </n-text></n-h3>
-                        <div v-if="gaokaoEssayStore.submissionStatus != 'Submitted'">
+                        <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
-                        <n-text v-else> {{ gaokaoEssayStore.essayFeedback.overallComment }} </n-text>
+                        <n-text v-else> {{ ieltsEssayStore.essayFeedback.overallComment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 内容 </n-text></n-h3>
-                        <div v-if="gaokaoEssayStore.submissionStatus != 'Submitted'">
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> TR </n-text></n-h3>
+                        <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
-                        <n-text v-else> {{ gaokaoEssayStore.essayFeedback.content.comment }} </n-text>
+                        <n-text v-else> {{ ieltsEssayStore.essayFeedback.TR.comment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 表达 </n-text></n-h3>
-                        <div v-if="gaokaoEssayStore.submissionStatus != 'Submitted'">
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> CC </n-text></n-h3>
+                        <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
-                        <n-text v-else> {{ gaokaoEssayStore.essayFeedback.expression.comment }} </n-text>
+                        <n-text v-else> {{ ieltsEssayStore.essayFeedback.CC.comment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 特征 </n-text></n-h3>
-                        <div v-if="gaokaoEssayStore.submissionStatus != 'Submitted'">
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> LR </n-text></n-h3>
+                        <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
-                        <n-text v-else> {{ gaokaoEssayStore.essayFeedback.feature.comment }} </n-text>
+                        <n-text v-else> {{ ieltsEssayStore.essayFeedback.LR.comment }} </n-text>
+                    </div>
+                    <div>
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> GRA </n-text></n-h3>
+                        <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
+                            <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
+                        </div>
+                        <n-text v-else> {{ ieltsEssayStore.essayFeedback.GRA.comment }} </n-text>
                     </div>
                     <n-collapse-transition :show="isButtonsShown">
                         <n-h3 class="feedback-aspect"><n-text> 追问 TeacherGPT </n-text></n-h3>
                         <n-space>
                             <n-skeleton
-                                v-if="gaokaoEssayStore.submissionStatus != 'Submitted'"
+                                v-if="ieltsEssayStore.submissionStatus != 'Submitted'"
                                 :width="230"
                                 :sharp="false"
                                 size="medium"
                             /><n-skeleton
-                                v-if="gaokaoEssayStore.submissionStatus != 'Submitted'"
+                                v-if="ieltsEssayStore.submissionStatus != 'Submitted'"
                                 :width="320"
                                 :sharp="false"
                                 size="medium"
-                            /><n-skeleton v-if="gaokaoEssayStore.submissionStatus != 'Submitted'" :width="300" :sharp="false" size="medium" />
+                            /><n-skeleton v-if="ieltsEssayStore.submissionStatus != 'Submitted'" :width="300" :sharp="false" size="medium" />
                             <n-button
                                 v-else
-                                v-for="(followupMessage, index) in gaokaoEssayStore.essayFeedback.suggestedFollowupMessages"
+                                v-for="(followupMessage, index) in ieltsEssayStore.essayFeedback.suggestedFollowupMessages"
                                 :loading="loadingStates[index]"
                                 :disabled="anyLoading || isLimitReached"
                                 @click="submitFollowup(followupMessage, index)"
@@ -93,8 +106,8 @@
                             </n-button>
                         </n-space>
                     </n-collapse-transition>
-                    <GaokaoEssayFollowup
-                        v-for="answer in gaokaoEssayStore.followupAnswers"
+                    <IELTSEssayFollowup
+                        v-for="answer in ieltsEssayStore.followupAnswers"
                         :question="answer.question"
                         :answer="answer.answer"
                         :suggested-followup-messages="answer.suggestedFollowupMessages"
@@ -114,10 +127,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useMessage } from 'naive-ui';
-import { useGaokaoEssayStore } from '@/stores/gaokaoEssay';
+import { useIELTSEssayStore } from '@/stores/ieltsEssay';
 
 const message = useMessage();
-const gaokaoEssayStore = useGaokaoEssayStore();
+const ieltsEssayStore = useIELTSEssayStore();
 
 const api = useAPI();
 
@@ -129,21 +142,21 @@ const anyLoading = computed(() => loadingStates.value.some((state) => state));
 function submitFollowup(followupQuestion: string, index: number) {
     loadingStates.value[index] = true;
 
-    api.ieltsEssayFollowupMessage(gaokaoEssayStore.followupMessages, gaokaoEssayStore.essay, {
+    api.ieltsEssayFollowupMessage(ieltsEssayStore.followupMessages, ieltsEssayStore.essay, {
         role: 'user',
         content: followupQuestion
     })
         .then((response) => {
             // If success, then record the followup question and answer
-            gaokaoEssayStore.addFollowupMessage({
+            ieltsEssayStore.addFollowupMessage({
                 role: 'user',
                 content: followupQuestion
             });
-            gaokaoEssayStore.addFollowupMessage({
+            ieltsEssayStore.addFollowupMessage({
                 role: 'assistant',
                 content: JSON.stringify(response.data)
             });
-            gaokaoEssayStore.addFollowupAnswer(response.data, followupQuestion);
+            ieltsEssayStore.addFollowupAnswer(response.data, followupQuestion);
             isButtonsShown.value = false;
         })
         .catch((error) => {
