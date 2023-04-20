@@ -2,17 +2,16 @@
     <div>
         <n-space :size="6">
             <n-h3 class="feedback-aspect">
-                <n-text> {{ question }} </n-text>
+                <n-text v-for="(questionLine, index) in questionLines" :key="index"> {{ questionLine }} </n-text>
             </n-h3>
             <n-tag v-if="audience != 'default'" round size="small" :bordered="false" type="success"> {{ audienceMap[audience] }} </n-tag>
         </n-space>
 
-        <div v-if="props.waiting">
-            <n-skeleton text :repeat="2" />
-            <n-skeleton text style="width: 60%" />
+        <div>
+            <n-p v-for="(line, index) in answerLines" :key="index">
+                {{ line }}
+            </n-p>
         </div>
-
-        <n-p v-else style="margin-top: 0;">{{ answer }}</n-p>
 
         <n-collapse-transition :show="blocked">
             <n-alert title="无法回答" type="error" closable> 对不起，根据相关限制，TeacherGPT 无法为你提供创作类型的回答 </n-alert>
@@ -33,7 +32,6 @@ const api = useAPI();
 const props = defineProps<{
     question: Question;
     answer: Answer;
-    waiting: boolean;
 }>();
 const question = props.question.content;
 const audience = props.question.audience;
@@ -44,6 +42,14 @@ const isButtonsShown = ref(true);
 const isLimitReached = ref(false);
 const loadingStates: Ref<boolean[]> = ref([]);
 const anyLoading = computed(() => loadingStates.value.some((state) => state));
+
+const answerLines = computed(() => {
+    return answer.split('\n');
+});
+
+const questionLines = computed(() => {
+    return question.split('\n');
+});
 
 interface AudienceMap {
     [key: string]: string;

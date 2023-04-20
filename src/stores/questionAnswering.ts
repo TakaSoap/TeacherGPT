@@ -14,10 +14,7 @@ export interface Answer {
     suggestedFollowupMessages: string[];
 }
 
-/**
- * Messages of chat model from OpenAI.
- */
-export interface Message{
+export interface Message {
     question: Question;
     answer: Answer;
 }
@@ -26,7 +23,6 @@ export interface Message{
  * The store for question answering.
  */
 export const useQuestionAnsweringStore = defineStore('questionAnswering', () => {
-    
     /**
      * Current question in the input component.
      */
@@ -65,7 +61,7 @@ export const useQuestionAnsweringStore = defineStore('questionAnswering', () => 
         conversation.value = [];
         isWaiting.value = false;
     }
-    
+
     /**
      * Add a followup message to the followupMessages array.
      * @param newAnswer The message received from OpenAI Chat API
@@ -78,7 +74,7 @@ export const useQuestionAnsweringStore = defineStore('questionAnswering', () => 
                 audience: question.value.audience
             },
             answer: newAnswer
-        }
+        };
 
         conversation.value.push(newMessage);
     }

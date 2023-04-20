@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Essay as GaokaoEssay, Message as GaokaoMessage } from '@/stores/gaokaoEssay';
 import { Essay as IELTSEssay, Message as IELTSMessage } from '@/stores/ieltsEssay';
 import { useQuestionAnsweringStore, Answer, Message as QAMessage } from '@/stores/questionAnswering';
+import { StudentInfo } from '../stores/evaluation';
 
 interface GPTMessage {
     role: string;
@@ -135,5 +136,28 @@ export default function useAPI() {
         throw new Error('Request failed after maxAttempts.');
     };
 
-    return { essayFirstMessage, essayFollowupMessage, gaokaoEssayFirstMessage, gaokaoEssayFollowupMessage, ieltsEssayFirstMessage, ieltsEssayFollowupMessage, qaMessage };
+    const evaluationMessage = async (studentInfo: StudentInfo) => {
+        attempts = 0;
+        while (attempts < maxAttempts) {
+            try {
+                const response = await axiosInstance.post('/evaluation', {
+                    studentInfo
+                });
+
+                if (response.status === 200) {
+                    return response;
+                }
+            } catch (error) {
+                console.error('Error during request:', error);
+                throw error;
+            }
+
+            attempts++;
+        }
+
+        // If we reach this point, all attempts have failed.
+        throw new Error('Request failed after maxAttempts.');
+    }
+
+    return { essayFirstMessage, essayFollowupMessage, gaokaoEssayFirstMessage, gaokaoEssayFollowupMessage, ieltsEssayFirstMessage, ieltsEssayFollowupMessage, qaMessage, evaluationMessage };
 }

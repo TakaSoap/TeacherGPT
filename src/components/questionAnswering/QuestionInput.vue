@@ -14,7 +14,7 @@
             :status="inputStatus"
             placeholder="输入你的问题或需要解释的概念"
         ></n-input>
-        <n-tooltip trigger="hover" placement="bottom">
+        <n-popover trigger="hover" placement="bottom">
             <template #trigger>
                 <n-select
                     style="margin-right: 0.5rem; width: 6.5rem"
@@ -25,7 +25,7 @@
                 />
             </template>
             <n-text>在这里选择回答受众水平</n-text>
-        </n-tooltip>
+        </n-popover>
 
         <n-button secondary type="primary" style="margin-right: 0.5rem" size="large" @click="submitQuestion" :disabled="QAStore.isWaiting || props.disabled"
             ><template #icon>

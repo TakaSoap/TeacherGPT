@@ -1,9 +1,8 @@
 <template>
     <div class="main-view">
-        <n-h1 prefix="bar">
-            <n-text type="primary"> 工作台 </n-text>
-        </n-h1>
-        <n-p>请在左侧选择要使用的功能</n-p>
+        <n-space vertical justify="center">
+            <n-result status="418" title="TeacherGPT 工作台" description="请在左侧选择功能"> </n-result>
+        </n-space>
     </div>
 </template>
 
@@ -11,6 +10,6 @@
 
 <style scoped>
 .main-view {
-    padding: 2rem 3.5rem;
+    padding: 10rem 10rem;
 }
 </style>

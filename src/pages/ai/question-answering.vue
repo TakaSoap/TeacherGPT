@@ -17,7 +17,6 @@
                                     v-for="message in QAStore.conversation"
                                     :question="message.question"
                                     :answer="message.answer"
-                                    :waiting="false"
                                 />
 
                                 <QuestionFeedback v-if="QAStore.isWaiting" :question="QAStore.question" :answer="QAStore.answer" :waiting="true" />

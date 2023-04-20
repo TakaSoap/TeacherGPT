@@ -1,0 +1,80 @@
+import { defineStore } from 'pinia';
+
+export interface StudentInfo {
+    name: string;
+    gender: string | null;
+    grade: string | null;
+    performance: {
+        academic: number | null;
+        discipline: number | null;
+        engagement: number | null;
+        homework: number | null;
+        participation: number | null;
+        potential: number | null;
+    };
+    subjects: {
+        strong: string[];
+        weak: string[];
+    };
+    additionalInfo: string;
+}
+
+export interface Message {
+    studentInfo: StudentInfo;
+    evaluation: string;
+}
+
+function createEmptyStudentInfo(): StudentInfo {
+    return {
+        name: '',
+        gender: null,
+        grade: null,
+        performance: {
+            academic: null,
+            discipline: null,
+            engagement: null,
+            homework: null,
+            participation: null,
+            potential: null
+        },
+        subjects: {
+            strong: [],
+            weak: []
+        },
+        additionalInfo: ''
+    };
+}
+
+export const useEvaluationStore = defineStore('evaluation', () => {
+    const studentInfo: Ref<StudentInfo> = ref(createEmptyStudentInfo());
+
+    const evaluation: Ref<string> = ref('');
+
+    const evaluations: Ref<Message[]> = ref([]);
+
+    const isWaiting: Ref<boolean> = ref(false);
+
+    function setEvaluation(newEvaluation: string) {
+        evaluation.value = newEvaluation;
+    }
+
+    function resetEvaluation() {
+        studentInfo.value = createEmptyStudentInfo();
+    }
+
+    function resetAll() {
+        resetEvaluation();
+        evaluation.value = '';
+        evaluations.value = [];
+    }
+
+    return {
+        studentInfo,
+        evaluation,
+        evaluations,
+        isWaiting,
+        setEvaluation,
+        resetEvaluation,
+        resetAll
+    };
+});
