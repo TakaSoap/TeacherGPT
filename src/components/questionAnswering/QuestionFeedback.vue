@@ -7,7 +7,11 @@
             <n-tag v-if="audience != 'default'" round size="small" :bordered="false" type="success"> {{ audienceMap[audience] }} </n-tag>
         </n-space>
 
-        <div>
+        <div v-if="props.waiting">
+            <n-skeleton text :repeat="2" />
+            <n-skeleton text style="width: 60%" />
+        </div>
+        <div v-else>
             <n-p v-for="(line, index) in answerLines" :key="index">
                 {{ line }}
             </n-p>
@@ -32,6 +36,7 @@ const api = useAPI();
 const props = defineProps<{
     question: Question;
     answer: Answer;
+    waiting: boolean;
 }>();
 const question = props.question.content;
 const audience = props.question.audience;

@@ -10,9 +10,6 @@
             <template #header-extra>
                 <n-space>隐藏信息<n-switch v-model:value="isInfoHidden" /></n-space>
             </template>
-            <n-collapse-transition :show="!isInfoHidden && evaluationStore.evaluations.length != 0">
-                <n-text italic>信息已隐藏</n-text>
-            </n-collapse-transition>
             <n-collapse-transition :show="!isInfoHidden">
                 <n-form :show-feedback="false">
                     <n-space>
@@ -212,8 +209,16 @@
                                                     :status="customInputStatus"
                                                     placeholder="在此输入自定义科目"
                                                     :disabled="isInputsDisabled"
+                                                    @keyup.enter="handleAddCustomSubjectEnter('strong')"
                                                 />
-                                                <n-button @click="handleAddCustomSubject('strong')" keyboard="true"> 添加 </n-button>
+                                                <n-button @click="handleAddCustomSubject('strong')">
+                                                    <template #icon>
+                                                        <n-icon>
+                                                            <AddOutline />
+                                                        </n-icon>
+                                                    </template>
+                                                    添加
+                                                </n-button>
                                             </n-input-group>
                                         </template>
                                     </n-select>
@@ -237,8 +242,16 @@
                                                     :status="customInputStatus"
                                                     placeholder="在此输入自定义科目"
                                                     :disabled="isInputsDisabled"
+                                                    @keyup.enter="handleAddCustomSubjectEnter('weak')"
                                                 />
-                                                <n-button @click="handleAddCustomSubject('weak')" keyboard="true"> 添加 </n-button>
+                                                <n-button @click="handleAddCustomSubject('weak')">
+                                                    <template #icon>
+                                                        <n-icon>
+                                                            <AddOutline />
+                                                        </n-icon>
+                                                    </template>
+                                                    添加
+                                                </n-button>
                                             </n-input-group>
                                         </template>
                                     </n-select>
@@ -258,6 +271,10 @@
                             placeholder="在此输入相关补充信息"
                             :disabled="isInputsDisabled"
                         />
+                    </n-form-item>
+
+                    <n-form-item style="padding-left: 0.125rem; padding-top: 0" label="生成顺口溜" label-placement="left">
+                        <n-switch v-model:value="isRhymingPoem" />
                     </n-form-item>
                 </n-form>
             </n-collapse-transition>
@@ -289,14 +306,12 @@
                 </n-button>
             </n-space>
         </n-card>
-
-        {{ JSON.stringify(evaluationStore.studentInfo) }}
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { PaperPlaneOutline, RefreshOutline, TrashBinOutline } from '@vicons/ionicons5';
+import { PaperPlaneOutline, RefreshOutline, TrashBinOutline, AddOutline } from '@vicons/ionicons5';
 import { useMessage } from 'naive-ui';
 import { useEvaluationStore } from '@/stores/evaluation';
 
@@ -310,6 +325,8 @@ const api = useAPI();
 const isInputsDisabled = ref(false);
 const isInfoHidden = ref(false);
 const showSubjectsPerformance = ref(false);
+
+const isRhymingPoem = ref(false);
 
 interface SubjectOption {
     label: string;
@@ -419,6 +436,10 @@ function handleAddCustomSubject(aspect: string) {
     handleUpdateSubject();
 }
 
+function handleAddCustomSubjectEnter(aspect: string) {
+    handleAddCustomSubject(aspect);
+}
+
 function setPerformanceValue(value: number, aspect: string) {
     type PerformanceAspect = 'academic' | 'homework' | 'potential' | 'participation' | 'engagement' | 'discipline';
 
@@ -441,18 +462,18 @@ function resetAll() {
 
 function submitInfo() {
     isInputsDisabled.value = true;
+    evaluationStore.isWaiting = true;
 
-    api.evaluationMessage(evaluationStore.studentInfo)
+    api.evaluationMessage(evaluationStore.studentInfo, isRhymingPoem.value)
         .then((response) => {
-            evaluationStore.isWaiting = false;
-            evaluationStore.setEvaluation(response.data);
+            evaluationStore.addEvaluation(response.data);
         })
         .catch((error) => {
             message.error('服务器错误\n', error);
-            evaluationStore.isWaiting = false;
         })
         .finally(() => {
             isInputsDisabled.value = false;
+            evaluationStore.isWaiting = false;
         });
 }
 </script>

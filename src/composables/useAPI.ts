@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Essay as GaokaoEssay, Message as GaokaoMessage } from '@/stores/gaokaoEssay';
 import { Essay as IELTSEssay, Message as IELTSMessage } from '@/stores/ieltsEssay';
 import { useQuestionAnsweringStore, Answer, Message as QAMessage } from '@/stores/questionAnswering';
@@ -118,7 +118,7 @@ export default function useAPI() {
                 const response = await axiosInstance.post('/qa', {
                     conversation,
                     newQuestion,
-                    audience,
+                    audience
                 });
 
                 if (response.status === 200) {
@@ -136,15 +136,22 @@ export default function useAPI() {
         throw new Error('Request failed after maxAttempts.');
     };
 
-    const evaluationMessage = async (studentInfo: StudentInfo) => {
+    const evaluationMessage = async (studentInfo: StudentInfo, isRhymingPoem: boolean) => {
         attempts = 0;
         while (attempts < maxAttempts) {
             try {
-                const response = await axiosInstance.post('/evaluation', {
-                    studentInfo
-                });
+                let response: AxiosResponse | null = null;
+                if (isRhymingPoem) {
+                    response = await axiosInstance.post('/evaluation/rhyming', {
+                        studentInfo
+                    });
+                } else {
+                    response = await axiosInstance.post('/evaluation', {
+                        studentInfo
+                    });
+                }
 
-                if (response.status === 200) {
+                if (response?.status === 200) {
                     return response;
                 }
             } catch (error) {
@@ -157,7 +164,16 @@ export default function useAPI() {
 
         // If we reach this point, all attempts have failed.
         throw new Error('Request failed after maxAttempts.');
-    }
+    };
 
-    return { essayFirstMessage, essayFollowupMessage, gaokaoEssayFirstMessage, gaokaoEssayFollowupMessage, ieltsEssayFirstMessage, ieltsEssayFollowupMessage, qaMessage, evaluationMessage };
+    return {
+        essayFirstMessage,
+        essayFollowupMessage,
+        gaokaoEssayFirstMessage,
+        gaokaoEssayFollowupMessage,
+        ieltsEssayFirstMessage,
+        ieltsEssayFollowupMessage,
+        qaMessage,
+        evaluationMessage
+    };
 }

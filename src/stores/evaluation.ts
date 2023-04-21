@@ -48,14 +48,15 @@ function createEmptyStudentInfo(): StudentInfo {
 export const useEvaluationStore = defineStore('evaluation', () => {
     const studentInfo: Ref<StudentInfo> = ref(createEmptyStudentInfo());
 
-    const evaluation: Ref<string> = ref('');
-
     const evaluations: Ref<Message[]> = ref([]);
 
     const isWaiting: Ref<boolean> = ref(false);
 
-    function setEvaluation(newEvaluation: string) {
-        evaluation.value = newEvaluation;
+    function addEvaluation(newEvaluation: string) {
+        evaluations.value.push({
+            studentInfo: studentInfo.value,
+            evaluation: newEvaluation
+        });
     }
 
     function resetEvaluation() {
@@ -64,16 +65,14 @@ export const useEvaluationStore = defineStore('evaluation', () => {
 
     function resetAll() {
         resetEvaluation();
-        evaluation.value = '';
         evaluations.value = [];
     }
 
     return {
         studentInfo,
-        evaluation,
         evaluations,
         isWaiting,
-        setEvaluation,
+        addEvaluation,
         resetEvaluation,
         resetAll
     };
