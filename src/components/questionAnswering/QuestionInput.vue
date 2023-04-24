@@ -73,11 +73,11 @@ const audiences = [
     },
     {
         label: '初中',
-        value: 'junior'
+        value: 'middle'
     },
     {
         label: '高中',
-        value: 'senior'
+        value: 'high'
     }
 ];
 

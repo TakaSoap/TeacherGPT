@@ -63,8 +63,8 @@ interface AudienceMap {
 const audienceMap: AudienceMap = {
     default: '默认',
     primary: '小学',
-    junior: '初中',
-    senior: '高中'
+    middle: '初中',
+    high: '高中'
 };
 
 function submitFollowup(followupQuestion: string, index: number) {

@@ -9,7 +9,10 @@ export interface StudentInfo {
         discipline: number | null;
         engagement: number | null;
         homework: number | null;
+        innovativeSpirit: number | null;
+        moralHabit: number | null;
         participation: number | null;
+        peerRelationship: number | null;
         potential: number | null;
     };
     subjects: {
@@ -34,7 +37,10 @@ function createEmptyStudentInfo(): StudentInfo {
             discipline: null,
             engagement: null,
             homework: null,
+            innovativeSpirit: null,
+            moralHabit: null,
             participation: null,
+            peerRelationship: null,
             potential: null
         },
         subjects: {

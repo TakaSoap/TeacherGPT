@@ -1,28 +1,11 @@
 import { defineStore } from 'pinia';
 
-export interface Essay {
-    topic: string;
-    title: string;
-    content: string;
-}
-
 /**
  * The same as the prompts defined in the backend.
  */
 export interface EssayFeedback {
-    content: {
-        score: number;
-        comment: string;
-    };
-    expression: {
-        score: number;
-        comment: string;
-    };
-    feature: {
-        score: number;
-        comment: string;
-    };
-    overallComment: string;
+    grade: string;
+    comment: string;
     suggestedFollowupMessages: string[];
 }
 
@@ -56,29 +39,17 @@ enum SubmissionStatus {
 }
 
 /**
- * The store for gaokao essay.
+ * The store for an essay.
  */
-export const useGaokaoEssayStore = defineStore('gaokaoEssay', () => {
-    const essay: Ref<Essay> = ref({
-        topic: '',
-        title: '',
-        content: ''
-    });
+export const useEssayStore = defineStore('essay', () => {
+    const essay = ref('');
+
+    const audience = ref('teacher');
+    const level = ref('primary');
 
     const essayFeedback: Ref<EssayFeedback> = ref({
-        content: {
-            score: 0,
-            comment: ''
-        },
-        expression: {
-            score: 0,
-            comment: ''
-        },
-        feature: {
-            score: 0,
-            comment: ''
-        },
-        overallComment: '',
+        grade: '',
+        comment: '',
         suggestedFollowupMessages: []
     });
 
@@ -95,25 +66,10 @@ export const useGaokaoEssayStore = defineStore('gaokaoEssay', () => {
     }
 
     function resetEssay() {
-        essay.value = {
-            topic: '',
-            title: '',
-            content: ''
-        };
+        essay.value = ''
         essayFeedback.value = {
-            content: {
-                score: 0,
-                comment: ''
-            },
-            expression: {
-                score: 0,
-                comment: ''
-            },
-            feature: {
-                score: 0,
-                comment: ''
-            },
-            overallComment: '',
+            grade: '',
+            comment: '',
             suggestedFollowupMessages: []
         };
         followupMessages.value = [];
@@ -173,35 +129,17 @@ export const useGaokaoEssayStore = defineStore('gaokaoEssay', () => {
     }
 
     /**
-     * Computed length of topic, without spaces.
-     * @returns {number}
-     */
-    const topicLength = computed(() => {
-        return essay.value.topic.replace(/\s/g, '').length;
-    });
-
-    /**
-     * Computed length of title, without spaces.
-     */
-    const titleLength = computed(() => {
-        return essay.value.title.replace(/\s/g, '').length;
-    });
-
-    /**
      * Computed length of essay, without spaces.
      * @returns {number}
      */
     const essayLength = computed(() => {
-        return essay.value.content.replace(/\s/g, '').length;
-    });
-
-    const totalScore = computed(() => {
-        let score = essayFeedback.value.content.score + essayFeedback.value.expression.score + essayFeedback.value.feature.score;
-        return score;
+        return essay.value.replace(/\s/g, '').length;
     });
 
     return {
         essay,
+        audience,
+        level,
         essayFeedback,
         followupMessages,
         followupAnswers,
@@ -213,11 +151,6 @@ export const useGaokaoEssayStore = defineStore('gaokaoEssay', () => {
         addFollowupMessage,
         addFollowupAnswer,
         submissionStatus,
-        essayLength,
-        topicLength,
-        titleLength,
-        totalScore
+        essayLength
     };
 });
-
-// TODO: Add history support

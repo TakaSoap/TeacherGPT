@@ -125,6 +125,8 @@ export const useIELTSEssayStore = defineStore('ieltsEssay', () => {
             overallComment: '',
             suggestedFollowupMessages: []
         };
+        followupMessages.value = [];
+        followupAnswers.value = [];
         submissionStatus.value = SubmissionStatus.NotSubmitted;
     }
     

@@ -28,8 +28,8 @@
 
 <script setup lang="ts">
 import { MenuOption, NIcon, useMessage } from 'naive-ui';
-import { FileTrayFullOutline, BookOutline, ChatboxOutline, SchoolOutline, PencilOutline, PersonOutline } from '@vicons/ionicons5';
-import { Component, Ref, provide } from 'vue';
+import { FileTrayFullOutline, BookOutline, ChatboxOutline, SchoolOutline, PencilOutline, SparklesOutline } from '@vicons/ionicons5';
+import { Component } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const route = useRoute();
@@ -105,6 +105,18 @@ const menuOptions: MenuOption[] = [
             ),
         key: 'my',
         icon: renderIcon(ChatboxOutline)
+    },
+    {
+        label: () =>
+            h(
+                RouterLink,
+                {
+                    to: '/ai/spark'
+                },
+                () => '灵感火花 SparkEdu'
+            ),
+        key: 'qa',
+        icon: renderIcon(SparklesOutline)
     },
     {
         label: () =>

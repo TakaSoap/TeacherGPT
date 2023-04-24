@@ -140,17 +140,7 @@
                                 />
                             </n-space>
                         </n-gi>
-                        <n-gi>
-                            <n-space vertical size="small">
-                                <n-text>未来期望</n-text>
-                                <n-rate
-                                    :value="evaluationStore.studentInfo.performance.potential"
-                                    :disabled="isInputsDisabled"
-                                    @update:value="(value: number) => setPerformanceValue(value, 'potential')"
-                                    clearable
-                                />
-                            </n-space>
-                        </n-gi>
+                        
                         <n-gi>
                             <n-space vertical size="small">
                                 <n-text>班级工作</n-text>
@@ -180,6 +170,50 @@
                                     :value="evaluationStore.studentInfo.performance.discipline"
                                     :disabled="isInputsDisabled"
                                     @update:value="(value: number) => setPerformanceValue(value, 'discipline')"
+                                />
+                            </n-space>
+                        </n-gi>
+                        <n-gi>
+                            <n-space vertical size="small">
+                                <n-text>品德习惯</n-text>
+                                <n-rate
+                                    :value="evaluationStore.studentInfo.performance.moralHabit"
+                                    :disabled="isInputsDisabled"
+                                    @update:value="(value: number) => setPerformanceValue(value, 'moralHabits')"
+                                    clearable
+                                />
+                            </n-space>
+                        </n-gi>
+                        <n-gi>
+                            <n-space vertical size="small">
+                                <n-text>同学关系</n-text>
+                                <n-rate
+                                    :value="evaluationStore.studentInfo.performance.peerRelationship"
+                                    :disabled="isInputsDisabled"
+                                    @update:value="(value: number) => setPerformanceValue(value, 'peerRelationship')"
+                                    clearable
+                                />
+                            </n-space>
+                        </n-gi>
+                        <n-gi>
+                            <n-space vertical size="small">
+                                <n-text>创新精神</n-text>
+                                <n-rate
+                                    :value="evaluationStore.studentInfo.performance.innovativeSpirit"
+                                    :disabled="isInputsDisabled"
+                                    @update:value="(value: number) => setPerformanceValue(value, 'innovativeSpirit')"
+                                    clearable
+                                />
+                            </n-space>
+                        </n-gi>
+                        <n-gi>
+                            <n-space vertical size="small">
+                                <n-text>未来期望</n-text>
+                                <n-rate
+                                    :value="evaluationStore.studentInfo.performance.potential"
+                                    :disabled="isInputsDisabled"
+                                    @update:value="(value: number) => setPerformanceValue(value, 'potential')"
+                                    clearable
                                 />
                             </n-space>
                         </n-gi>
@@ -441,9 +475,9 @@ function handleAddCustomSubjectEnter(aspect: string) {
 }
 
 function setPerformanceValue(value: number, aspect: string) {
-    type PerformanceAspect = 'academic' | 'homework' | 'potential' | 'participation' | 'engagement' | 'discipline';
+    type PerformanceAspect = 'academic' | 'homework' | 'potential' | 'participation' | 'engagement' | 'discipline' | 'moralHabit' | 'peerRelationship' | 'innovativeSpirit';
 
-    const aspects: PerformanceAspect[] = ['academic', 'homework', 'potential', 'participation', 'engagement', 'discipline'];
+    const aspects: PerformanceAspect[] = ['academic', 'homework', 'potential', 'participation', 'engagement', 'discipline', 'moralHabit', 'peerRelationship', 'innovativeSpirit'];
 
     if (aspects.includes(aspect as PerformanceAspect)) {
         evaluationStore.studentInfo.performance[aspect as PerformanceAspect] = value;
