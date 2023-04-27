@@ -54,28 +54,28 @@
                         <n-text v-else> {{ ieltsEssayStore.essayFeedback.overallComment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> TR </n-text></n-h3>
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 写作任务回应情况 Task Response </n-text></n-h3>
                         <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
                         <n-text v-else> {{ ieltsEssayStore.essayFeedback.TR.comment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> CC </n-text></n-h3>
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 连贯与衔接 Coherence and Cohesion </n-text></n-h3>
                         <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
                         <n-text v-else> {{ ieltsEssayStore.essayFeedback.CC.comment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> LR </n-text></n-h3>
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 词汇丰富程度 Lexical Resource </n-text></n-h3>
                         <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>
                         <n-text v-else> {{ ieltsEssayStore.essayFeedback.LR.comment }} </n-text>
                     </div>
                     <div>
-                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> GRA </n-text></n-h3>
+                        <n-h3 prefix="bar" class="feedback-aspect"><n-text> 语法多样性及准确性 Grammatical Range and Accuracy </n-text></n-h3>
                         <div v-if="ieltsEssayStore.submissionStatus != 'Submitted'">
                             <n-skeleton text :repeat="2" /><n-skeleton text style="width: 60%" />
                         </div>

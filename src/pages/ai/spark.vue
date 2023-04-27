@@ -5,9 +5,6 @@
                 <n-space vertical size="large">
                     <n-h1 prefix="bar">
                         <n-text type="primary"> 灵感火花 SparkEdu </n-text>
-                        <n-icon>
-                            <SparklesOutline />
-                        </n-icon>
                     </n-h1>
                     
                     <SparkFirstInput />

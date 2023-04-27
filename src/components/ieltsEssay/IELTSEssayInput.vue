@@ -18,8 +18,8 @@
                         <n-input
                             :status="topicStatus"
                             :autosize="{
-                                minRows: 3,
-                                maxRows: 8
+                                minRows: 2,
+                                maxRows: 5
                             }"
                             v-model:value="ieltsEssayStore.essay.topic"
                             type="textarea"

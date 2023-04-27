@@ -179,7 +179,7 @@
                                 <n-rate
                                     :value="evaluationStore.studentInfo.performance.moralHabit"
                                     :disabled="isInputsDisabled"
-                                    @update:value="(value: number) => setPerformanceValue(value, 'moralHabits')"
+                                    @update:value="(value: number) => setPerformanceValue(value, 'moralHabit')"
                                     clearable
                                 />
                             </n-space>

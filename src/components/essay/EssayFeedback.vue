@@ -11,7 +11,8 @@
 
                 <n-space vertical style="padding-bottom: 1.5rem">
                     <n-statistic label="等级">
-                        <n-gradient-text :type="gradeType">{{ essayStore.essayFeedback.grade }}</n-gradient-text>
+                        <n-skeleton v-if="essayStore.submissionStatus != 'Submitted'" :width="30" :sharp="false" size="medium" />
+                        <n-gradient-text v-else :type="gradeType">{{ essayStore.essayFeedback.grade }}</n-gradient-text>
                     </n-statistic>
                     <div>
                         <n-h3 prefix="bar" class="feedback-aspect"><n-text> 评语 </n-text></n-h3>
@@ -53,7 +54,7 @@
                 </n-space>
             </n-card>
             <template #description>
-                <div style="text-align: center">TeacherGPT 正在批改<br />约需 1 分钟</div>
+                <div style="text-align: center">TeacherGPT 正在批改<br />约需 30 秒</div>
             </template>
         </n-spin>
     </div>

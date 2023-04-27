@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { useLoadingBar, useMessage } from 'naive-ui';
-import { loadingBarRef } from '@/composables/loadingBarAndTitleControl.js';
+import { loadingBarRef } from '~~/src/composables/loadingBarAndTitleControl.js';
 
 const router = useRouter();
 loadingBarAndTitleControl(router);
@@ -21,16 +21,6 @@ const loading = ref(true);
 
 const route = useRoute();
 const loadingBar = useLoadingBar();
-
-const isRouterActive = ref(true);
-
-const message = useMessage();
-
-async function reload() {
-    isRouterActive.value = false;
-    await nextTick();
-    isRouterActive.value = true;
-}
 
 onMounted(() => {
     loadingBarRef.value = loadingBar;
@@ -45,13 +35,3 @@ watch(
     }
 );
 </script>
-
-<style scoped>
-/* .main-container {
-    min-height: calc(100vh - var(--header-height));
-}
-
-.site-header {
-    height: var(--header-height);
-} */
-</style>

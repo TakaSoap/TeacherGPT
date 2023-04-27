@@ -2,7 +2,7 @@
     <div class="main-view">
         <n-space vertical size="large">
             <n-h1 prefix="bar">
-                <n-text type="primary"> 通用作文批改 </n-text>
+                <n-text type="primary"> 普通作文批改 </n-text>
             </n-h1>
             <EssayInput />
             <n-collapse-transition :show="essayStore.submissionStatus != 'NotSubmitted'">

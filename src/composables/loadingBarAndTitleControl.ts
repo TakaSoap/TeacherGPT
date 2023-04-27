@@ -7,8 +7,11 @@ const titleMap: TitleMap = {
     '/ai/': '工作台',
     '/ai/gaokao-essay': '高考作文批改',
     '/ai/ielts-essay': '雅思作文批改',
-    
-
+    '/ai/essay': '普通作文批改',
+    '/ai/evaluation': '学生评语生成',
+    '/ai/question-answering': '通用问答',
+    '/ai/spark': '灵感火花 SparkEdu',
+    '/paper': '论文'
 };
 
 export const loadingBarRef: Ref<any> = ref(null);

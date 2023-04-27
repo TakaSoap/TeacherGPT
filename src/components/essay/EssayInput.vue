@@ -69,7 +69,7 @@
                     清空作文
                 </n-button>
             </n-space>
-            <n-button v-else @click="resetForm" secondary type="error">
+            <n-button v-else :disabled="essayStore.submissionStatus === 'Submitting'" @click="resetForm" secondary type="error">
                 <template #icon>
                     <n-icon>
                         <RefreshOutline />
