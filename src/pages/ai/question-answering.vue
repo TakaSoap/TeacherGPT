@@ -117,6 +117,7 @@ function submitFollowup(followupQuestion: string, index: number) {
 <style scoped>
 .question-page {
     margin: 2rem 3.5rem;
+    padding-bottom: 5rem;
 }
 .question-input {
     margin: 1rem 3.5rem;

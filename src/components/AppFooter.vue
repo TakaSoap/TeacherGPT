@@ -6,7 +6,7 @@
             </n-text>
             <br/>
             <n-text depth="3">
-                基于 GPT-3 的教师教学工作辅助平台设计  &nbsp|&nbsp  指导教师：张君
+                基于 GPT-4 的教师教学工作辅助平台设计  &nbsp|&nbsp  指导教师：张君
             </n-text>
             <br/>
             <n-button text tag="a" href="https://beian.miit.gov.cn/" target="_blank" color="gray">

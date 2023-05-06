@@ -64,7 +64,7 @@ const menuOptions: MenuOption[] = [
                 () => '普通作文批改'
             ),
         key: 'essay',
-        icon: renderIcon(SchoolOutline)
+        icon: renderIcon(BookOutline)
     },
     {
         label: () =>
@@ -76,7 +76,7 @@ const menuOptions: MenuOption[] = [
                 () => '高考作文批改'
             ),
         key: 'gaokao-essay',
-        icon: renderIcon(BookOutline)
+        icon: renderIcon(SchoolOutline)
     },
     {
         label: () =>
